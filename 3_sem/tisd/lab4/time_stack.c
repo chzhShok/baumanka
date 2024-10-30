@@ -8,7 +8,7 @@
 
 void measure_time() {
     stack_array_t array_stack;
-    init_stack_arr(&array_stack, NUM_ELEMENTS);
+    init_stack_arr(&array_stack);
 
     stack_list_t list_stack;
     init_stack_list(&list_stack);

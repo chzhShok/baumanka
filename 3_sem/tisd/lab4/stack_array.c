@@ -1,33 +1,26 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 #include "stack_array.h"
 
-int init_stack_arr(stack_array_t *stack, int capacity)
+void init_stack_arr(stack_array_t *stack)
 {
-    stack->array = malloc(capacity * sizeof(char));
-    if (!stack->array)
-        return 1;
-
-    stack->top = stack->array - 1;
-    stack->capacity = capacity;
-    return 0;
+    stack->top = -1;
+    stack->capacity = STACK_CAPACITY;
 }
 
 void free_stack_arr(stack_array_t *stack)
 {
-    stack->top = NULL;
-    free(stack->array);
+    stack->top = -1;
 }
 
 int is_full_arr(stack_array_t *stack)
 {
-    return stack->top >= (stack->array + stack->capacity - 1);
+    return stack->top == stack->capacity - 1;
 }
 
 int is_empty_arr(stack_array_t *stack)
 {
-    return stack->top < stack->array;
+    return stack->top == -1;
 }
 
 int push_arr(stack_array_t *stack, char element)
@@ -36,7 +29,7 @@ int push_arr(stack_array_t *stack, char element)
         return 1;
 
     stack->top++;
-    *stack->top = element;
+    stack->array[stack->top] = element;
     return 0;
 }
 
@@ -45,7 +38,7 @@ char pop_arr(stack_array_t *stack)
     if (is_empty_arr(stack))
         return '\0';
 
-    char value = *stack->top;
+    char value = stack->array[stack->top];
     stack->top--;
 
     return value;
@@ -59,8 +52,8 @@ void print_arr(stack_array_t *stack)
         return;
     }
 
-    for (char *p = stack->top; p >= stack->array; p--)
-        printf("address: %p, element: %c\n", (void *) p, *p);
+    for (int i = stack->top; i >= 0; i--)
+        printf("address: %p, element: %c\n", (void *) &stack->array[i], stack->array[i]);
 
     printf("\n");
 }
@@ -73,25 +66,24 @@ void peek_arr(stack_array_t *stack)
         return;
     }
 
-    printf("address: %p, element: %c\n", (void *) stack->top, *stack->top);
+    printf("address: %p, element: %c\n", (void *) &stack->array[stack->top], stack->array[stack->top]);
 }
 
-int is_palindrome_arr(stack_array_t stack)
+int is_palindrome_arr(stack_array_t *stack)
 {
-    stack_array_t stack_copy;
+    if (is_empty_arr(stack))
+        return 1;
 
-    stack_copy.array = stack.array;
-    stack_copy.top = stack.top;
-    stack_copy.capacity = stack.capacity;
+    int i1 = stack->top;
+    int i2 = 0;
 
-    char *p1 = stack.array, *p2 = stack_copy.top;
-    while (p1 != stack.top && p2 != stack_copy.array)
+    while (i2 < i1)
     {
-        if (*p1 != *p2)
+        if (stack->array[i1] != stack->array[i2])
             return 0;
 
-        p1++;
-        p2--;
+        i1--;
+        i2++;
     }
 
     return 1;

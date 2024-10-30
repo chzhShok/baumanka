@@ -35,28 +35,16 @@ int main(void)
 {
     int command;
 
-    int max_size_arr;
-    printf("Задайте размер стека как массива: ");
-    if (scanf("%d", &max_size_arr) != 1)
-    {
-        printf("Ошибка: некорректный размер\n");
-        return IO_ERROR;
-    }
-    getchar();
-
     stack_array_t stack_arr;
-    if (init_stack_arr(&stack_arr, max_size_arr))
-    {
-        printf("Ошибка: неудалось выделить память под данные\n");
-        return MEMORY_ERROR;
-    }
+    init_stack_arr(&stack_arr);
 
     stack_list_t stack_list;
     init_stack_list(&stack_list);
 
     menu();
 
-    do {
+    do
+    {
         printf("\nВведите комманду: ");
         if (scanf("%d", &command) != 1)
         {
@@ -76,8 +64,8 @@ int main(void)
                 return IO_ERROR;
             }
 
-            if (stack_arr.top == NULL)
-                init_stack_arr(&stack_arr, max_size_arr);
+            if (stack_arr.top == -1)
+                init_stack_arr(&stack_arr);
 
             if (push_arr(&stack_arr, element))
                 printf("Стек заполнен\n");
@@ -154,7 +142,7 @@ int main(void)
 
             if (stack_type == 1)
             {
-                if (is_palindrome_arr(stack_arr))
+                if (is_palindrome_arr(&stack_arr))
                     printf("Строка является палиндромом\n");
                 else
                     printf("Строка не является палиндромом\n");
@@ -175,8 +163,6 @@ int main(void)
             continue;
     } while (command != 0);
 
-    if (stack_arr.top != NULL)
-        free_stack_arr(&stack_arr);
     if (stack_list.top != NULL)
         free_stack_list(&stack_list);
 
