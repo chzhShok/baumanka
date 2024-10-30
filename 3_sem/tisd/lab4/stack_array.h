@@ -1,7 +1,7 @@
 #ifndef LAB4_STACK_ARRAY_H
 #define LAB4_STACK_ARRAY_H
 
-#define STACK_CAPACITY 4
+#define STACK_CAPACITY 1000
 
 typedef struct {
   char array[STACK_CAPACITY];

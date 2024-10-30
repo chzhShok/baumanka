@@ -1,12 +1,13 @@
+#include <math.h>
 #include <stdio.h>
 #include <time.h>
-#include <math.h>
 
-#include "stack_list.h"
 #include "stack_array.h"
+#include "stack_list.h"
 #include "time_stack.h"
 
-void measure_time() {
+void measure_time()
+{
     stack_array_t array_stack;
     init_stack_arr(&array_stack);
 
@@ -17,35 +18,31 @@ void measure_time() {
 
     // Замер времени для стека на основе массива
     start = clock();
-    for (int i = 0; i < NUM_ELEMENTS; i++) {
+    for (int i = 0; i < NUM_ELEMENTS; i++)
         push_arr(&array_stack, 'a');
-    }
     end = clock();
-    double array_push_time = (double)(end - start) / CLOCKS_PER_SEC / NUM_ELEMENTS * COEFF;
+    double array_push_time = (double) (end - start) / CLOCKS_PER_SEC / NUM_ELEMENTS * COEFF;
 
     start = clock();
-    for (int i = 0; i < NUM_ELEMENTS; i++) {
+    for (int i = 0; i < NUM_ELEMENTS; i++)
         pop_arr(&array_stack);
-    }
     end = clock();
-    double array_pop_time = (double)(end - start) / CLOCKS_PER_SEC / NUM_ELEMENTS * COEFF;
+    double array_pop_time = (double) (end - start) / CLOCKS_PER_SEC / NUM_ELEMENTS * COEFF;
 
     free_stack_arr(&array_stack);
 
     // Замер времени для стека на основе списка
     start = clock();
-    for (int i = 0; i < NUM_ELEMENTS; i++) {
+    for (int i = 0; i < NUM_ELEMENTS; i++)
         push_list(&list_stack, 'a');
-    }
     end = clock();
-    double list_push_time = (double)(end - start) / CLOCKS_PER_SEC / NUM_ELEMENTS * COEFF;
+    double list_push_time = (double) (end - start) / CLOCKS_PER_SEC / NUM_ELEMENTS * COEFF;
 
     start = clock();
-    for (int i = 0; i < NUM_ELEMENTS; i++) {
+    for (int i = 0; i < NUM_ELEMENTS; i++)
         pop_list(&list_stack);
-    }
     end = clock();
-    double list_pop_time = (double)(end - start) / CLOCKS_PER_SEC / NUM_ELEMENTS * COEFF;
+    double list_pop_time = (double) (end - start) / CLOCKS_PER_SEC / NUM_ELEMENTS * COEFF;
 
     free_stack_list(&list_stack);
 
