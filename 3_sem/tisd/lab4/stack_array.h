@@ -11,7 +11,7 @@ typedef struct {
 
 void init_stack_arr(stack_array_t *stack);
 int push_arr(stack_array_t *stack, char element);
-char pop_arr(stack_array_t *stack);
+char pop_arr(stack_array_t *stack, int out);
 void print_arr(stack_array_t *stack);
 void peek_arr(stack_array_t *stack);
 void free_stack_arr(stack_array_t *stack);

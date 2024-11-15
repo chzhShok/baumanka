@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <ctype.h>
 
 #include "stack_array.h"
 
@@ -28,17 +29,29 @@ int push_arr(stack_array_t *stack, char element)
     if (is_full_arr(stack))
         return 1;
 
-    stack->top++;
-    stack->array[stack->top] = element;
+    if (!isspace(element))
+    {
+        stack->top++;
+        stack->array[stack->top] = element;
+    }
+    else
+    {
+        printf("Пустой элемент\n");
+    }
+
     return 0;
 }
 
-char pop_arr(stack_array_t *stack)
+char pop_arr(stack_array_t *stack, int out)
 {
     if (is_empty_arr(stack))
         return '\0';
 
     char value = stack->array[stack->top];
+
+    if (out)
+        printf("Удален элемент: %c, адрес: %p\n", value, (void *) &(stack->array[stack->top]));
+
     stack->top--;
 
     return value;

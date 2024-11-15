@@ -72,8 +72,7 @@ int main(void)
         }
         else if (command == 2)
         {
-            char element = pop_arr(&stack_arr);
-            printf("Удален элемент: %c\n", element);
+            char element = pop_arr(&stack_arr, 1);
         }
         else if (command == 3)
         {
@@ -103,8 +102,7 @@ int main(void)
         }
         else if (command == 7)
         {
-            char element = pop_list(&stack_list);
-            printf("Удален элемент: %c\n", element);
+            char element = pop_list(&stack_list, 1);
         }
         else if (command == 8)
         {

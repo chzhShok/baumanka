@@ -25,7 +25,7 @@ void measure_time()
 
     start = clock();
     for (int i = 0; i < NUM_ELEMENTS; i++)
-        pop_arr(&array_stack);
+        pop_arr(&array_stack, 0);
     end = clock();
     double array_pop_time = (double) (end - start) / CLOCKS_PER_SEC / NUM_ELEMENTS * COEFF;
 
@@ -40,7 +40,7 @@ void measure_time()
 
     start = clock();
     for (int i = 0; i < NUM_ELEMENTS; i++)
-        pop_list(&list_stack);
+        pop_list(&list_stack, 0);
     end = clock();
     double list_pop_time = (double) (end - start) / CLOCKS_PER_SEC / NUM_ELEMENTS * COEFF;
 
@@ -48,6 +48,7 @@ void measure_time()
 
     printf("Среднее время добавления в стек-массив: %.10f * 10^(-%d) секунд\n", array_push_time, (int) log10(COEFF));
     printf("Среднее время удаления из стека-массива: %.10f * 10^(-%d) секунд\n", array_pop_time, (int) log10(COEFF));
+    printf("\n");
     printf("Среднее время добавления в стек-список: %.10f * 10^(-%d) секунд\n", list_push_time, (int) log10(COEFF));
     printf("Среднее время удаления из стека-списка: %.10f * 10^(-%d) секунд\n", list_pop_time, (int) log10(COEFF));
 }

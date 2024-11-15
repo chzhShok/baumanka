@@ -14,7 +14,7 @@ typedef struct
 
 void init_stack_list(stack_list_t *stack);
 int push_list(stack_list_t *stack, char element);
-char pop_list(stack_list_t *stack);
+char pop_list(stack_list_t *stack, int out);
 void print_list(stack_list_t *stack);
 void peek_list(stack_list_t *stack);
 void free_stack_list(stack_list_t *stack);

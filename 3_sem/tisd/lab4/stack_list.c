@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 #include "stack_list.h"
 
@@ -19,14 +20,21 @@ int push_list(stack_list_t *stack, char element)
     if (!node)
         return 1;
 
-    node->data = element;
-    node->next = (struct node_t *) stack->top;
-    stack->top = node;
+    if (!isspace(element))
+    {
+        node->data = element;
+        node->next = (struct node_t *) stack->top;
+        stack->top = node;
+    }
+    else
+    {
+        printf("Пустой элемент\n");
+    }
 
     return 0;
 }
 
-char pop_list(stack_list_t *stack)
+char pop_list(stack_list_t *stack, int out)
 {
     if (is_empty(stack))
         return '\0';
@@ -34,6 +42,9 @@ char pop_list(stack_list_t *stack)
     node_t *temp = stack->top;
 
     char value = stack->top->data;
+    if (out)
+        printf("Удален элемент: %c, адрес: %p\n", value, (void *) &(stack->top->data));
+
     stack->top = (node_t *) stack->top->next;
     free(temp);
 
@@ -64,7 +75,7 @@ void peek_list(stack_list_t *stack)
 void free_stack_list(stack_list_t *stack)
 {
     while (!is_empty(stack))
-        pop_list(stack);
+        pop_list(stack, 0);
 }
 
 int is_palindrome_list(stack_list_t stack)
@@ -82,7 +93,7 @@ int is_palindrome_list(stack_list_t stack)
     tmp = stack.top;
     while (tmp != NULL)
     {
-        if (tmp->data != pop_list(&stack_reversed))
+        if (tmp->data != pop_list(&stack_reversed, 0))
         {
             free_stack_list(&stack_reversed);
             return 0;
