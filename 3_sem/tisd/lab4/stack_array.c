@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include <ctype.h>
+#include <stdio.h>
 
 #include "stack_array.h"
 
@@ -87,17 +87,29 @@ int is_palindrome_arr(stack_array_t *stack)
     if (is_empty_arr(stack))
         return 1;
 
-    int i1 = stack->top;
-    int i2 = 0;
+    stack_array_t stack_reversed;
+    init_stack_arr(&stack_reversed);
 
-    while (i2 < i1)
+    for (int p = 0; p <= stack->top; p++)
     {
-        if (stack->array[i1] != stack->array[i2])
+        if (push_arr(&stack_reversed, (char) p))
+        {
+            free_stack_arr(&stack_reversed);
             return 0;
-
-        i1--;
-        i2++;
+        }
     }
 
+    char *p = stack->array;
+    while (!is_empty_arr(&stack_reversed))
+    {
+        if (*p != pop_arr(&stack_reversed, 0))
+        {
+            free_stack_arr(&stack_reversed);
+            return 0;
+        }
+        p++;
+    }
+
+    free_stack_arr(&stack_reversed);
     return 1;
 }

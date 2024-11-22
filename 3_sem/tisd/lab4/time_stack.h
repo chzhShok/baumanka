@@ -1,8 +1,8 @@
 #ifndef LAB4_TIME_STACK_H
 #define LAB4_TIME_STACK_H
 
-#define NUM_ELEMENTS 1000
-#define COEFF 1000000000
+#define COEFF 1000000
+#define TIMES_LEN 1000
 
 void measure_time(void);
 

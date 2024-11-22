@@ -16,33 +16,63 @@ void measure_time()
 
     clock_t start, end;
 
+    int number_of_elements = STACK_CAPACITY * 0.07;
+    double sum_times = 0;
+    
     // Замер времени для стека на основе массива
-    start = clock();
-    for (int i = 0; i < NUM_ELEMENTS; i++)
-        push_arr(&array_stack, 'a');
-    end = clock();
-    double array_push_time = (double) (end - start) / CLOCKS_PER_SEC / NUM_ELEMENTS * COEFF;
+    for (int i = 0; i < TIMES_LEN; i++)
+    {
+        start = clock();
+        for (int j = 0; j < number_of_elements; j++)
+            push_arr(&array_stack, 'a');
+        end = clock();
+        double array_push_time = (double) (end - start) / CLOCKS_PER_SEC * COEFF;
+        
+        sum_times += array_push_time;
+    }
+    double array_push_time = sum_times / TIMES_LEN;
 
-    start = clock();
-    for (int i = 0; i < NUM_ELEMENTS; i++)
-        pop_arr(&array_stack, 0);
-    end = clock();
-    double array_pop_time = (double) (end - start) / CLOCKS_PER_SEC / NUM_ELEMENTS * COEFF;
+    sum_times = 0.0;
+    for (int i = 0; i < TIMES_LEN; i++)
+    {
+        start = clock();
+        for (int j = 0; j < number_of_elements; j++)
+            pop_arr(&array_stack, 0);
+        end = clock();
+        double array_pop_time = (double) (end - start) / CLOCKS_PER_SEC * COEFF;
+        
+        sum_times += array_pop_time;
+    }
+    double array_pop_time = sum_times / TIMES_LEN;
 
     free_stack_arr(&array_stack);
 
     // Замер времени для стека на основе списка
-    start = clock();
-    for (int i = 0; i < NUM_ELEMENTS; i++)
-        push_list(&list_stack, 'a');
-    end = clock();
-    double list_push_time = (double) (end - start) / CLOCKS_PER_SEC / NUM_ELEMENTS * COEFF;
+    sum_times = 0.0;
+    for (int i = 0; i < TIMES_LEN; i++)
+    {
+        start = clock();
+        for (int j = 0; j < number_of_elements; j++)
+            push_list(&list_stack, 'a');
+        end = clock();
+        double list_push_time = (double) (end - start) / CLOCKS_PER_SEC * COEFF;
+        
+        sum_times += list_push_time;
+    }
+    double list_push_time = sum_times / TIMES_LEN;
 
-    start = clock();
-    for (int i = 0; i < NUM_ELEMENTS; i++)
-        pop_list(&list_stack, 0);
-    end = clock();
-    double list_pop_time = (double) (end - start) / CLOCKS_PER_SEC / NUM_ELEMENTS * COEFF;
+    sum_times = 0.0;
+    for (int i = 0; i < TIMES_LEN; i++)
+    {
+        start = clock();
+        for (int j = 0; j < number_of_elements; j++)
+            pop_list(&list_stack, 0);
+        end = clock();
+        double list_pop_time = (double) (end - start) / CLOCKS_PER_SEC * COEFF;
+
+        sum_times += list_pop_time;
+    }
+    double list_pop_time = sum_times / TIMES_LEN;
 
     free_stack_list(&list_stack);
 
