@@ -60,7 +60,7 @@ void print_tree(struct Node *root, struct Trunk *prev, int isLeft)
 
     show_trunks(trunk);
     if (root->count > 1)
-        printf(RED"%c"RESET"\n", root->data);
+        printf(RED"%c(%d)"RESET "\n", root->data, root->count);
     else
         printf(" %c\n", root->data);
 

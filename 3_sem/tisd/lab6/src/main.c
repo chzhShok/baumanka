@@ -136,7 +136,7 @@ int main()
             case 0:
                 free_tree(root);
                 return 0;
-            default:
+            case 123:
                 printf("Неверная команда\n");
         }
     }

@@ -1,4 +1,3 @@
-#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,9 +5,6 @@
 
 #include "efficiency.h"
 #include "tree.h"
-
-#define MAX_NUM_TESTS 1000
-#define MAX_STR_LEN 1000
 
 void random_string(char *str, int n)
 {
@@ -133,9 +129,7 @@ double run_tests_tree_find(char *str)
     }
 
     avr = calc_mean(test_arr, MAX_NUM_TESTS);
-    printf("Реализация с помощью дерева:\n");
-    printf("|  Время, нс  | Кол-во итераций |\n");
-    printf("|%12.2lf | %15d |\n", avr, MAX_NUM_TESTS);
+    printf("Реализация с помощью дерева: %.2lf\n", avr);
     return avr;
 }
 
@@ -188,7 +182,8 @@ void compare_search(void)
         printf("\n"PURPLE);
         double avr2;
 
-        printf("Длина строки: %d\n\n", l_str);
+        printf("Длина строки: %d\n", l_str);
+        printf("Количество итераций: %d\n\n", MAX_NUM_TESTS);
 
         char str[MAX_STR_LEN];
         random_string(str, l_str);
