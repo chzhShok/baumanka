@@ -7,6 +7,9 @@
 
 #define STRING_LEN 100
 
+#define RED "\033[0;31m"
+#define RESET "\033[0;37m"
+
 struct Node
 {
     char data;
@@ -24,10 +27,10 @@ struct Trunk
 
 void print_tree(struct Node *root, struct Trunk *prev, int isLeft);
 struct Node *insert(struct Node *root, char key);
-void in_order_traversal(struct Node *root);
+void print_tree_as_string(struct Node *root);
 struct Node *search(struct Node *root, char key);
 struct Node *del_node(struct Node *root, char key);
 void free_tree(struct Node *root);
-struct Node *del_rep_nodes(struct Node *root);
+struct Node *delete_duplicate_nodes(struct Node *root);
 
 #endif

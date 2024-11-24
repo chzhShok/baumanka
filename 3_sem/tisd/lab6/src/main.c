@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "research.h"
+#include "efficiency.h"
 #include "tree.h"
 
 void menu()
@@ -50,6 +50,7 @@ int main()
                     printf("Неверный ввод строки\n");
                     break;
                 }
+                input_string[strcspn(input_string, "\n")] = '\0';
 
                 if (strlen(input_string) == 0)
                 {
@@ -87,7 +88,7 @@ int main()
                 if (!root)
                     printf("Пустое дерево\n");
                 else
-                    in_order_traversal(root);
+                    print_tree_as_string(root);
 
                 break;
             case 5:
@@ -117,13 +118,13 @@ int main()
 
                 break;
             case 7:
-                root = del_rep_nodes(root);
+                root = delete_duplicate_nodes(root);
                 break;
             case 8:
-                cmp_del_rep();
+                compare_delete_duplicates();
                 break;
             case 9:
-                cmp_find();
+                compare_search();
                 break;
             case 10:
                 free_tree(root);

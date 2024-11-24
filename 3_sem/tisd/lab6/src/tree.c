@@ -8,27 +8,24 @@ int max(int a, int b)
 int height(struct Node *node)
 {
     if (node == NULL)
-    {
         return 0;
-    }
+
     return node->height;
 }
 
 int get_balance(struct Node *node)
 {
     if (node == NULL)
-    {
         return 0;
-    }
+
     return height(node->left) - height(node->right);
 }
 
 void show_trunks(struct Trunk *p)
 {
     if (p == NULL)
-    {
         return;
-    }
+
 
     show_trunks(p->prev);
     printf("%s", p->str);
@@ -37,9 +34,7 @@ void show_trunks(struct Trunk *p)
 void print_tree(struct Node *root, struct Trunk *prev, int isLeft)
 {
     if (root == NULL)
-    {
         return;
-    }
 
     char *prev_str = "    ";
     struct Trunk *trunk = (struct Trunk *) malloc(sizeof(struct Trunk));
@@ -65,14 +60,13 @@ void print_tree(struct Node *root, struct Trunk *prev, int isLeft)
 
     show_trunks(trunk);
     if (root->count > 1)
-        printf(" \033[0;31m%c\033[0;37m\n", root->data);
+        printf(RED"%c"RESET"\n", root->data);
     else
         printf(" %c\n", root->data);
 
     if (prev)
-    {
         prev->str = prev_str;
-    }
+
     trunk->str = "   |";
 
     print_tree(root->left, trunk, 0);
@@ -119,9 +113,7 @@ struct Node *left_rotate(struct Node *x)
 struct Node *insert(struct Node *root, char key)
 {
     if (root == NULL)
-    {
         return create_node(key);
-    }
 
     if (key < root->data)
     {
@@ -141,14 +133,10 @@ struct Node *insert(struct Node *root, char key)
     int balance = get_balance(root);
 
     if (balance > 1 && key < root->left->data)
-    {
         return right_rotate(root);
-    }
 
     if (balance < -1 && key > root->right->data)
-    {
         return left_rotate(root);
-    }
 
     if (balance > 1 && key > root->left->data)
     {
@@ -165,30 +153,27 @@ struct Node *insert(struct Node *root, char key)
     return root;
 }
 
-void in_order_traversal(struct Node *root)
+void print_tree_as_string(struct Node *root)
 {
     if (root != NULL)
     {
-        in_order_traversal(root->left);
+        print_tree_as_string(root->left);
         if (root->count > 1)
-            printf(" \033[0;31m%c\033[0;37m", root->data);
+            for (int i = 0; i < root->count; i++)
+                printf(" \033[0;31m%c\033[0;37m", root->data);
         else
             printf(" %c", root->data);
-        in_order_traversal(root->right);
+        print_tree_as_string(root->right);
     }
 }
 
 struct Node *search(struct Node *root, char key)
 {
     if (root == NULL || root->data == key)
-    {
         return root;
-    }
 
     if (key < root->data)
-    {
         return search(root->left, key);
-    }
 
     return search(root->right, key);
 }
@@ -196,18 +181,16 @@ struct Node *search(struct Node *root, char key)
 struct Node *find_min(struct Node *root)
 {
     while (root != NULL && root->left != NULL)
-    {
         root = root->left;
-    }
+
     return root;
 }
 
 struct Node *del_node(struct Node *root, char key)
 {
     if (root == NULL)
-    {
         return root;
-    }
+
 
     if (key < root->data)
     {
@@ -251,20 +234,16 @@ void free_tree(struct Node *root)
     }
 }
 
-struct Node *del_rep_nodes(struct Node *root)
+struct Node *delete_duplicate_nodes(struct Node *root)
 {
     if (root == NULL)
-    {
         return NULL;
-    }
 
-    root->left = del_rep_nodes(root->left);
-    root->right = del_rep_nodes(root->right);
+    root->left = delete_duplicate_nodes(root->left);
+    root->right = delete_duplicate_nodes(root->right);
 
     if (root->count > 1)
-    {
         return del_node(root, root->data);
-    }
 
     return root;
 }

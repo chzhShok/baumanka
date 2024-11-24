@@ -8,6 +8,6 @@ include_directories(./inc)
 add_executable(lab6
         src/main.c
         src/tree.c
-        src/research.c
-        inc/research.h
+        src/efficiency.c
+        inc/efficiency.h
         inc/tree.h)
