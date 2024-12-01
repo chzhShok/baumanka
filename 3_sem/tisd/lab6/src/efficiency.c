@@ -94,7 +94,7 @@ double run_tests_tree(char *str)
         for (int j = 0; str[j] != '\0'; j++)
             root = insert(root, str[j]);
         clock_gettime(CLOCK_MONOTONIC_RAW, &start);
-        root = delete_duplicate_nodes(root);
+        root = delete_duplicates(root);
         clock_gettime(CLOCK_MONOTONIC_RAW, &end);
         free_tree(root);
         root = NULL;

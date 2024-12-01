@@ -3,11 +3,11 @@ project(lab6 C)
 
 set(CMAKE_C_STANDARD 11)
 
-include_directories(./inc)
+include_directories(inc)
 
 add_executable(lab6
-        src/main.c
-        src/tree.c
-        src/efficiency.c
         inc/efficiency.h
-        inc/tree.h)
+        inc/tree.h
+        src/efficiency.c
+        src/main.c
+        src/tree.c)

@@ -2,7 +2,7 @@
 #define RESEARCH_H
 
 #define PURPLE "\033[0;35m"
-#define RESET "\033[0;37m"
+#define RESET "\033[0;97m"
 
 #define COEFF 1000000000
 #define MAX_NUM_TESTS 1000

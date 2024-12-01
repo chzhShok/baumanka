@@ -29,7 +29,7 @@ int main()
     int command;
 
     struct Node *root = NULL;
-    char input_string[STRING_LEN];
+    char input_string[MAX_STR_LEN];
     char input_char;
 
     menu();
@@ -45,7 +45,7 @@ int main()
         {
             case 1:
                 printf("Введите строку: ");
-                if (fgets(input_string, STRING_LEN, stdin) == NULL)
+                if (fgets(input_string, MAX_STR_LEN, stdin) == NULL)
                 {
                     printf("Неверный ввод строки\n");
                     break;
@@ -81,21 +81,21 @@ int main()
                     break;
                 }
 
-                root = del_node(root, input_char);
+                root = delete_node(root, input_char);
 
                 break;
             case 4:
                 if (!root)
                     printf("Пустое дерево\n");
                 else
-                    print_tree_as_string(root);
+                    post_order(root);
 
                 break;
             case 5:
                 if (!root)
                     printf("Пустое дерево\n");
                 else
-                    print_tree(root, NULL, 0);
+                    save_to_png_from_graphviz(root, 1);
 
                 break;
             case 6:
@@ -113,12 +113,12 @@ int main()
                         break;
                     }
                     struct Node *found = search(root, input_char);
-                    print_tree(found, NULL, 0);
+                    save_to_png_from_graphviz(found, 2);
                 }
 
                 break;
             case 7:
-                root = delete_duplicate_nodes(root);
+                root = delete_duplicates(root);
                 break;
             case 8:
                 compare_delete_duplicates();
