@@ -78,7 +78,7 @@ double run_tests_str(char *str)
     }
 
     avr = calc_mean(test_arr, MAX_NUM_TESTS);
-    printf("Реализация с помощью строки: %.2lf\n", avr);
+    printf("Реализация с помощью строки: %.2lf нс\n", avr);
     return avr;
 }
 
@@ -102,7 +102,7 @@ double run_tests_tree(char *str)
     }
 
     avr = calc_mean(test_arr, MAX_NUM_TESTS);
-    printf("Реализация с помощью дерева: %.2lf\n", avr);
+    printf("Реализация с помощью дерева: %.2lf нс\n", avr);
     return avr;
 }
 
@@ -129,7 +129,7 @@ double run_tests_tree_find(char *str)
     }
 
     avr = calc_mean(test_arr, MAX_NUM_TESTS);
-    printf("Реализация с помощью дерева: %.2lf\n", avr);
+    printf("Реализация с помощью дерева: %.2lf нс\n", avr);
     return avr;
 }
 

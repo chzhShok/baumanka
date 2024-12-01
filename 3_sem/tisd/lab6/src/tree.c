@@ -14,7 +14,7 @@ Node *create_node(char data)
     return node;
 }
 
-void free_tree(struct Node *root)
+void free_tree(Node *root)
 {
     if (root != NULL)
     {
