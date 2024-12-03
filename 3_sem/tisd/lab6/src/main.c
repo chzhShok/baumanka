@@ -66,7 +66,7 @@ int main()
                 printf("Введите символ: ");
                 if (scanf("%c", &input_char) != 1)
                 {
-                    printf("Символ не введен\n");
+                    printf("Ошибка ввода символа\n");
                     break;
                 }
 
@@ -77,7 +77,7 @@ int main()
                 printf("Введите символ: ");
                 if (scanf("%c", &input_char) != 1)
                 {
-                    printf("Символ не введен");
+                    printf("Ошибка ввода символа\n");
                     break;
                 }
 
