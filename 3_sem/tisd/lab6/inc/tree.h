@@ -8,6 +8,7 @@ typedef struct Node {
     struct Node *right;
 } Node;
 
+Node *create_node(char data);
 Node *insert(Node *root, char data);
 Node *delete_node(Node *root, char data);
 void free_tree(struct Node *root);
