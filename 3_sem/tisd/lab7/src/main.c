@@ -9,7 +9,7 @@
 
 #define MAX_STR_LEN 1000
 
-int main()
+int main(void)
 {
     int command;
 
