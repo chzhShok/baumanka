@@ -1,8 +1,6 @@
 #ifndef BST_TREE_H
 #define BST_TREE_H
 
-#define MAX_STR_LEN 1000
-
 typedef struct BSTNode
 {
     char data;

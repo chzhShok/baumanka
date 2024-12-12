@@ -7,6 +7,8 @@
 #include "efficiency.h"
 #include "ui.h"
 
+#define MAX_STR_LEN 1000
+
 int main()
 {
     int command;

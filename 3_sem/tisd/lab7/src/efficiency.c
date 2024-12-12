@@ -1,6 +1,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 
 #include "avl_tree.h"
@@ -8,16 +9,94 @@
 #include "efficiency.h"
 #include "hash_table.h"
 
-static char generate_random_char()
+AVLNode *insert_avl_dupl(AVLNode *root, char value)
 {
-    static const char charset[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    return charset[rand() % (sizeof(charset) - 1)];
+    if (root == NULL)
+        return create_node_avl(value);
+
+    if (value < root->data)
+        root->left = insert_avl_dupl(root->left, value);
+    else if (value > root->data)
+        root->right = insert_avl_dupl(root->right, value);
+    else
+        return root;
+
+    root->height =
+            1 + (get_height(root->left) > get_height(root->right) ? get_height(root->left) : get_height(root->right));
+
+    int balance = get_balance(root);
+
+    if (balance > 1 && value < root->left->data)
+        return rotate_right(root);
+
+    if (balance < -1 && value > root->right->data)
+        return rotate_left(root);
+
+    if (balance > 1 && value > root->left->data)
+    {
+        root->left = rotate_left(root->left);
+        return rotate_right(root);
+    }
+
+    if (balance < -1 && value < root->right->data)
+    {
+        root->right = rotate_right(root->right);
+        return rotate_left(root);
+    }
+
+    return root;
+}
+
+BSTNode *insert_bst_dupl(BSTNode *root, char value)
+{
+    if (root == NULL)
+    {
+        root = create_node_bst(value);
+        if (root == NULL)
+            return NULL;
+
+        return root;
+    }
+
+    if (value > root->data)
+        root->right = insert_bst_dupl(root->right, value);
+    else if (value < root->data)
+        root->left = insert_bst_dupl(root->left, value);
+
+    return root;
+}
+
+static char generate_random_char_from_ascii(int *used)
+{
+    while (1)
+    {
+        int index = rand() % 256;
+        if (!used[index])
+        {
+            used[index] = 1;
+            return (char) index;
+        }
+    }
 }
 
 static void generate_random_chars(char *chars, int count)
 {
-    for (int i = 0; i < count; i++)
-        chars[i] = generate_random_char();
+    int generated = 0;
+
+    while (generated < count)
+    {
+        int used[256];
+        memset(used, 0, sizeof(used));
+
+        int to_generate = (count - generated > 256) ? 256 : (count - generated);
+
+        for (int i = 0; i < to_generate; i++)
+            chars[generated + i] = generate_random_char_from_ascii(used);
+
+        generated += to_generate;
+    }
+
+    chars[count] = '\0';
 }
 
 static char get_random_char_from_array(const char *chars, int count)
@@ -64,9 +143,9 @@ size_t get_hash_table_memory(HashTable *table)
 
 void measure_average_search_time(void)
 {
-    const int levels[] = {2, 3, 5, 6, 7, 9, 10};
+    const int levels[] = {2, 3, 4, 5, 6, 7, 8, 9, 10};
     const int levels_count = sizeof(levels) / sizeof(levels[0]);
-    const int max_iter = 500;
+    const int max_iter = 1000;
 
     struct timespec start, end;
     srand(time(NULL));
@@ -92,8 +171,8 @@ void measure_average_search_time(void)
 
         for (int j = 0; j < num_elements; j++)
         {
-            root_bst_tree = insert_bst(root_bst_tree, chars[j]);
-            root_avl_tree = insert_avl(root_avl_tree, chars[j]);
+            root_bst_tree = insert_bst_dupl(root_bst_tree, chars[j]);
+            root_avl_tree = insert_avl_dupl(root_avl_tree, chars[j]);
             insert_hash_table(hash_table, chars[j]);
         }
 
@@ -117,9 +196,9 @@ void measure_average_search_time(void)
             total_time_hash_table += (end.tv_sec * 1e9 + end.tv_nsec) - (start.tv_sec * 1e9 + start.tv_nsec);
         }
 
-        double avg_time_bst_tree = total_time_bst_tree / max_iter;
-        double avg_time_avl_tree = total_time_avl_tree / max_iter;
-        double avg_time_hash_table = total_time_hash_table / max_iter;
+        double avg_time_bst_tree = total_time_bst_tree / (double) max_iter;
+        double avg_time_avl_tree = total_time_avl_tree / (double) max_iter;
+        double avg_time_hash_table = total_time_hash_table / (double) max_iter;
 
         int avg_cmp_cnt_bst_tree = (int) floor((double) cmp_cnt_bst_tree / max_iter);
         int avg_cmp_cnt_avl_tree = (int) floor((double) cmp_cnt_avl_tree / max_iter);

@@ -12,6 +12,11 @@ typedef struct AVLNode
     struct AVLNode *right;
 } AVLNode;
 
+AVLNode *create_node_avl(char value);
+int get_height(AVLNode *node);
+int get_balance(AVLNode *node);
+AVLNode *rotate_right(AVLNode *y);
+AVLNode *rotate_left(AVLNode *x);
 AVLNode *insert_avl(AVLNode *root, char key);
 AVLNode *delete_node_avl(AVLNode *root, char data);
 AVLNode *search_avl(AVLNode *root, char data, int *cmp_count);
