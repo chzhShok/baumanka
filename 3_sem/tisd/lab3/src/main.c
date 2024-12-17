@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "errors.h"
-#include "header.h"
+#include "inc/errors.h"
+#include "inc/header.h"
 
 void menu(void)
 {
