@@ -102,6 +102,12 @@ int **read_graph_from_file(FILE *file, int *n)
 
 void print_adjacency_matrix(int **graph, int n)
 {
+    if (n > 30)
+    {
+        printf("Граф слишком большой для вывода матрицы смежности\n");
+        return;
+    }
+
     char *inf = "INF";
     printf("\nМатрица смежности графа:\n");
 
